@@ -28,16 +28,27 @@ document.getElementById('upload-form').addEventListener('submit', function (even
         return;
     }
 
-    // Save file details and content to localStorage
-    const reader = new FileReader();
-    reader.onload = function () {
+    // Save file details to localStorage
+    if (fileExtension === 'mp4') {
+        // For large files like MP4, only save metadata, not content
         localStorage.setItem('uploadedFile', JSON.stringify({
             name: file.name,
             type: file.type,
-            size: file.size,
-            content: reader.result
+            size: file.size
         }));
         window.location.href = 'file-options.html'; // Redirect to File Options Page
-    };
-    reader.readAsDataURL(file);
+    } else {
+        // For smaller files like PDF and TXT, save the file content
+        const reader = new FileReader();
+        reader.onload = function () {
+            localStorage.setItem('uploadedFile', JSON.stringify({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                content: reader.result
+            }));
+            window.location.href = 'file-options.html'; // Redirect to File Options Page
+        };
+        reader.readAsDataURL(file);
+    }
 });

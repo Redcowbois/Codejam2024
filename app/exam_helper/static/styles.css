@@ -6,8 +6,11 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #2B3A42;
-  
+  background-image: url('wallpaperflare.com_wallpaper.jpg'); 
+  background-size: cover; 
+  background-repeat: no-repeat;
 }
+
 
 
 

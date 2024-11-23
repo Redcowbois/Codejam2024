@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+  <header class="header">
+    OMNI    
+    
+  </header>
+
+  <div class="container">
+    <div class="left-section">
+      <h1 style="animation: colorChange 2s infinite;">Turn Your Notes into <br> Success Tools</h1>
+       Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+        <ul style="text-align: left; color: #e3e3e3; font-size: 16px; margin: 20px auto; padding: 0; list-style-type: none; max-width: 500px;">
+          <li> <strong>Summaries</strong> – Understand the core ideas in minutes.</li>
+          <li> <strong>Flashcards</strong> – Create easy-to-memorize cards for quick review.</li>
+          <li> <strong>Podcasts</strong> – Convert content to audio for on-the-go learning.</li>
+          <li> <strong>Quizzes</strong> – Test your knowledge with AI-generated questions.</li>
+        </ul>
+
+          <strong>Try it now and see the magic happen!</strong>
+      </p>
+      <div class="buttons">
+        <button class="btn primary">About Us</button>
+        <button class="btn secondary">Contact Us</button>
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="upload-container">
+        <br>
+        <h2>Upload Files</h2>
+        <form method="POST" id="upload-form">
+          <label for="file-upload">Choose a file (PDF, MP4, TXT):</label>
+          <input type="file" id="file-upload" name="file" accept=".pdf,.mp4,.txt">
+          <div id="file-display" class="file-display">No file chosen</div>
+          <button type="submit" class="btn upload">Upload</button>
+        </form>
+        <div id="message" class="message"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

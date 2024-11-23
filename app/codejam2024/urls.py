@@ -16,7 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+<<<<<<< HEAD
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', include('catalog.urls'))
+=======
+from django.conf.urls import include
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('exam_helper', include("exam_helper.urls"))
+>>>>>>> 9dc2fd786a4a71c86bf332188cabefc2d2adc29a
 ]

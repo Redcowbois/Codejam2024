@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Options</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-image: url('wallpaperflare.com_wallpaper.jpg'); background-size: cover; background-repeat: no-repeat;">
+
+  <div class="container">
+    <div class="left-section">
+      <h2>What would you like to do with your file?</h2>
+      <div class="actions">
+        <button class="btn action" onclick="chooseOption('summary')">Summarize</button>
+        <button class="btn action" onclick="chooseOption('podcast')">Create Podcast</button>
+        <button class="btn action" onclick="chooseOption('quiz')">Generate Quiz</button>
+        <button class="btn action" onclick="chooseOption('flashcard')">Generate FlashCard</button>
+        <button class="btn return" onclick="goBack()">Return</button>
+      </div>
+    </div>
+    <div class="right-section">
+      <h2>File Details</h2>
+      <div id="file-preview">
+        <p id="file-name"></p>
+        <p id="file-type"></p>
+        <p id="file-size"></p>
+        <div id="file-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="file-options.js"></script>
+</body>
+</html>

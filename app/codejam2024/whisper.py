@@ -1,5 +1,9 @@
 import torch
-from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
+from transformers import (
+    AutoModelForSpeechSeq2Seq,
+    AutoProcessor,
+    pipeline,
+)
 from utils import ROOT_DIR
 from os import path
 
@@ -48,9 +52,3 @@ def transcribe_to_file(mp3_path: str, file_path: str):
             return_timestamps=True,
         )
         file.write(result["text"])
-
-
-transcribe_to_file(
-    path.join(ROOT_DIR, "sample_audio", "sample1.mp3"),
-    path.join(ROOT_DIR, "sample_audio", "sample1.txt"),
-)

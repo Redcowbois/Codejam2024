@@ -1,0 +1,282 @@
+Page 1
+Complex Numbers
+Lawrence R. Chen
+McGill University
+8/19/2024
+1
+Complex Numbers
+
+
+Page 2
+Acknowledgments
+• Profs. Benoit Champagne and Martin 
+Rochette, McGill University
+8/19/2024
+2
+Complex Numbers
+
+
+Page 3
+Introduction
+Consider the algebraic equation: 𝑥2 + 1 = 0
+Formally, we can write:
+𝑥2 + 1 = 0 ⟹ 𝑥2 = −1 ⟹ 𝑥= ± −1 = ±𝑗
+We refer to 𝑗=
+−1 as an imaginary number or imaginary unit
+In this video, we will review basic properties of complex
+numbers and functions of complex variables
+8/19/2024
+3
+Complex Numbers
+
+
+Page 4
+Notation
+• Complex numbers are commonly used in mathematics and 
+several branches of sciences and engineering:
+‒ In mathematics, physics, and other areas: −1 ≡𝑖
+‒ In electrical engineering: −1 ≡𝑗 (to avoid confusion with current)
+8/19/2024
+6
+Complex Numbers
+
+
+Page 5
+Basic number sets
+• Non-negative integers: ℕ= 0,1,2, ⋯
+• Signed Integers: ℤ= ⋯, −2, −1,0,1,2, ⋯
+• Rational numbers:     ℚ=
+±𝑎
+𝑏 ∶ 𝑎, 𝑏 ∈ℕ and 𝑏≠0  
+• Irrational numbers: 
+ 𝕀= 𝑎∉ℚ: 𝑎= lim
+𝑛→∞𝑎𝑛 where 𝑎𝑛∈ℚ
+ 
+Examples: 2, 𝜋= 3.1415…, 𝑒= 2.7182…
+• Real numbers: ℝ= ℚ∪𝕀
+8/19/2024
+7
+Complex Numbers
+
+
+Page 6
+Complex numbers
+• The set of complex numbers is denoted by ℂ
+• Formally, a complex number 𝑧∈ℂ is an ordered pair of 
+real numbers: 
+𝑧= 𝑎, 𝑏 where 𝑎, 𝑏∈ℝ
+• Using 𝑗=
+−1, we often express complex numbers in 
+the form 𝑧= 𝑎+ 𝑗𝑏 
+where
+𝑎= Re 𝑧 represents the real part of 𝑧               
+𝑏= Im 𝑧 represents the imaginary part of 𝑧
+8/19/2024
+8
+Complex Numbers
+
+
+Page 7
+Complex numbers
+• The set of complex numbers is denoted by ℂ
+• Formally, a complex number 𝑧∈ℂ is an ordered pair of 
+real numbers: 
+𝑧= 𝑎, 𝑏 where 𝑎, 𝑏∈ℝ
+• Using 𝑗=
+−1, we often express complex numbers in 
+the form 𝑧= 𝑎+ 𝑗𝑏 
+where
+𝑎= Re 𝑧 represents the real part of 𝑧               
+𝑏= Im 𝑧 represents the imaginary part of 𝑧
+8/19/2024
+9
+Complex Numbers
+
+
+Page 8
+Special note
+8/19/2024
+10
+Complex Numbers
+
+
+Page 9
+Properties
+Let 𝑧= 𝑎+ 𝑗𝑏 and 𝑤= 𝑐+ 𝑗𝑑
+• Addition
+𝑧+ 𝑤= 𝑎+ 𝑐+ 𝑗(𝑏+ 𝑑)
+• Multiplication
+𝑧𝑤= 𝑎𝑐−𝑏𝑑+ 𝑗(𝑏𝑐+ 𝑎𝑑)
+• We define the additive inverse
+−𝑧≝−1 𝑧= −𝑎−𝑗𝑏
+• The multiplicative inverse
+𝑧−1 ≝
+𝑎
+𝑎2 + 𝑏2 + 𝑗
+−𝑏
+𝑎2 + 𝑏2
+8/19/2024
+11
+Complex Numbers
+
+
+Page 10
+Complex conjugate and 
+magnitude
+• We define the complex conjugate of 𝑧= 𝑎+ 𝑗𝑏as
+𝑧∗= 𝑎−𝑗𝑏
+• We define the magnitude of 𝑧as
+𝑧=
+𝑧𝑧∗=
+𝑎2 + 𝑏2
+• Back to division:
+•
+1
+𝑧= 𝑧−1 =
+𝑎
+𝑎2+𝑏2 + 𝑗
+−𝑏
+𝑎2+𝑏2 =
+𝑧∗
+𝑧𝑧∗
+•
+𝑧
+𝑤= 𝑧𝑤−1 =
+𝑎𝑐+𝑏𝑑
+𝑐2+𝑑2 + 𝑗
+𝑏𝑐−𝑎𝑑
+𝑐2+𝑑2
+=
+𝑧𝑤∗
+𝑤𝑤∗
+8/19/2024
+12
+Complex Numbers
+Note: to eliminate the complex denominator, multiply both the numerator and denominator
+by the conjugate of the denominator
+
+
+Page 11
+Polar form
+We refer to 𝑧= 𝑎, 𝑏= 𝑎+ 𝑗𝑏 as the Cartesian (or rectangular) 
+form of 𝑧, since we can think of it as a point in a 2D Cartesian plane:
+Alternatively, we can represent 𝑧in terms of polar coordinates:
+8/19/2024
+13
+Complex Numbers
+𝑎= 𝑟cos 𝜃
+𝒓=
+𝒂𝟐+ 𝒃𝟐
+𝑏= 𝑟sin 𝜃
+𝜃= tan−1 𝑏
+𝑎
+
+
+Page 12
+Polar form – cont’d
+•
+Terminology
+𝑟= 𝑧= magnitude (or absolute value) of 𝑧
+𝜃= ∠𝑧= angle of 𝑧
+•
+When using a calculator to compute 𝜃= tan−1
+𝑏
+𝑎, you may need
+to add ±1800 if 𝑧= (𝑎, 𝑏) is in the 2nd or 3rd quadrant
+•
+Euler formula
+𝑒𝑗𝜃= cos 𝜃+ 𝑗sin 𝜃
+•
+Polar form
+𝑧= 𝑎+ 𝑗𝑏
+= 𝑟cos 𝜃+ 𝑗𝑟sin 𝜃
+= 𝑟(cos 𝜃+ 𝑗sin 𝜃) = 𝑟𝑒𝑗𝜃
+8/19/2024
+14
+Complex Numbers
+
+
+Page 13
+Useful polar representations
+Let 𝑧= 𝑎+ 𝑗𝑏= 𝑟𝑒𝑗𝜃
+𝑧∗= 𝑟𝑒−𝑗𝜃
+1
+𝑧= 1
+𝑟𝑒−𝑗𝜃
+1
+𝑧∗= 1
+𝑟𝑒𝑗𝜃
+𝑒𝑗2𝜋𝑘= 1, ∀𝑘∈ℤ
+𝑒𝑗Τ
+𝜋2 = 𝑗
+ 
+ 𝑒𝑗𝜋 = −1
+8/19/2024
+15
+Complex Numbers
+
+
+Page 14
+Operations in polar form
+• Let 𝑧1 = 𝑟1𝑒𝑗𝜃1 and 𝑧2 = 𝑟2𝑒𝑗𝜃2
+• Addition and subtraction
+First convert 𝑧1and 𝑧2 into Cartesian form and 
+proceed as before…
+• Multiplication 
+𝑧1𝑧2 = 𝑟1𝑟2𝑒𝑗𝜃1+𝜃2
+• Division 
+𝑧1
+𝑧2
+= 𝑟1
+𝑟2
+𝑒𝑗𝜃1−𝜃2
+8/19/2024
+16
+Complex Numbers
+
+
+Page 15
+Powers and roots
+• Let 𝑧= 𝑟𝑒𝑗𝜃
+• The nth power of 𝑧
+𝑧𝑛= 𝑟𝑛𝑒𝑗𝑛𝜃
+• To obtain the nth root, multiply 𝑧by 𝑒𝑗2𝜋𝑘= 1 and then
+apply the power Τ
+1 𝑛
+𝑧Τ
+1 𝑛= 𝑟𝑒𝑗𝜃𝑒𝑗2𝜋𝑘
+Τ
+1 𝑛
+= 𝑟Τ
+1 𝑛𝑒𝑗𝜃+2𝜋𝑘/𝑛
+• There are 𝑛roots, i.e., 𝑘= 0,1, ⋯, 𝑛−1
+• We define 𝑘= 0 ⟹principal value
+8/19/2024
+17
+Complex Numbers
+
+
+Page 16
+Log function
+• Properties
+𝑒ln 𝑧= 𝑧
+ln(𝑧1𝑧2) = ln 𝑧1 + ln 𝑧2
+ln(𝑧1/𝑧2) = ln 𝑧1 −ln 𝑧2
+• The complex power function 
+𝑧𝑤≝𝑒𝑤ln 𝑧
+• The natural logarithm of 𝑧= 𝑟𝑒𝑗𝜃is a multi-value 
+function defined as
+ln 𝑧≝ln 𝑟+ 𝑗𝜃+ 2𝜋𝑘,    𝑘∈ℤ
+8/19/2024
+18
+Complex Numbers
+
+
+Page 17
+Questions?
+• Send me an email:  lawrence.chen@mcgill.ca 
+8/19/2024
+19
+Complex Numbers
+
+

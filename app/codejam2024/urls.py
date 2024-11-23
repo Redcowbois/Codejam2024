@@ -21,5 +21,5 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('exam_helper', include("exam_helper.urls"))
+    path('exam_helper/', include("exam_helper.urls"))
 ]

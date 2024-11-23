@@ -33,6 +33,7 @@ pipe = pipeline(
     feature_extractor=processor.feature_extractor,
     torch_dtype=torch_dtype,
     device=device,
+    chunk_length_s=chunk_length_s,
 )
 
 generate_kwargs = {

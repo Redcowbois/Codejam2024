@@ -59,9 +59,9 @@ def generate_question_for_info(info: str, pipe):
     incorrect_answers.append(response[0]["generated_text"][-1]["content"])
 
     return {
-        "question": question,
-        "right_answer": correct,
-        "wrong_answer": incorrect_answers,
+        "question": question, #str
+        "right_answer": correct, #str
+        "wrong_answer": incorrect_answers, #arr
     }
 
 

@@ -30,25 +30,54 @@
   </div>
 
   <script>
+      let quizData;
+      document.addEventListener('DOMContentLoaded', function () {
+      // Data to send in the POST request
+      fetch('', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken'), // CSRF token for Django
+          },
+          body: JSON.stringify(payload),
+      })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              return response.json(); // Assuming the backend returns JSON
+          })
+          .then(data => {
+              console.log('Data fetched successfully:', data);
+              // Example: Update the page with the fetched data
+              quizData = data;
+              loadQuiz();
+          })
+          .catch(error => {
+              console.error('There was a problem with the fetch operation:', error);
+          });
+  }, false);
+
+
     // Sample JSON data for questions
-    const quizData = [
-    {
-      "question": "Which of the following is the correct representation of a complex number?",
-      "right_answer": "a+b⋅i",
-      "wrong_answers": ["a+b", "a×b+i"]
-    },
-    {
-      "question": "If z=3+4i, what is the magnitude of z?",
-      "right_answer": "5",
-      "wrong_answers": ["7", "10√10"]
-    },
-    {
-      "question": "What happens when you multiply i by itself?",
-      "right_answer": "-1",
-      "wrong_answers": ["1", "0"]
-    },
+  //   const quizData = [
+  //   {
+  //     "question": "Which of the following is the correct representation of a complex number?",
+  //     "right_answer": "a+b⋅i",
+  //     "wrong_answers": ["a+b", "a×b+i"]
+  //   },
+  //   {
+  //     "question": "If z=3+4i, what is the magnitude of z?",
+  //     "right_answer": "5",
+  //     "wrong_answers": ["7", "10√10"]
+  //   },
+  //   {
+  //     "question": "What happens when you multiply i by itself?",
+  //     "right_answer": "-1",
+  //     "wrong_answers": ["1", "0"]
+  //   },
   
-  ];
+  // ];
 
     let isDefaultBackground = true;
 
@@ -127,7 +156,6 @@
     }
 
     // Load the quiz on page load
-    document.addEventListener('DOMContentLoaded', loadQuiz);
   </script>
 </body>
 </html>

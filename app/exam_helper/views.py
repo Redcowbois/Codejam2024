@@ -7,6 +7,7 @@ from exam_helper.utils import ROOT_DIR
 import json
 from exam_helper.flashcards import generate_n_flashcards_for_info
 from exam_helper.multiple_choice import generate_n_questions_for_info
+from exam_helper.summary import generate_summary_for_info
 from exam_helper.qwen import get_qwen_pipe
 from os import path
 from exam_helper.utilities import convert_mp4_to_mp3, extract_text_from_pdf
@@ -65,10 +66,23 @@ def options(request):
 
 @csrf_exempt
 def summary(request):
-    if request.method == "POST":
-        print("options received")
-    template = loader.get_template("Summary.html")
-    return HttpResponse(template.render())
+    if request.method == 'POST':
+            payload = json.loads(request.body)
+            file = open("data.txt", "r")
+            text_data = file.read()
+            file.close()
+
+            pipe = get_qwen_pipe()
+            text_data = generate_summary_for_info(text_data, pipe)
+            del pipe
+            data = {
+                'message': text_data,
+            }
+            return JsonResponse(data)
+
+    if request.method == 'GET':
+        template = loader.get_template('flashcard.html')
+        return HttpResponse(template.render())
 
 
 @csrf_exempt

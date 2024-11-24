@@ -6,7 +6,7 @@ from os import path
 device = get_device()
 
 
-model_id = "Qwen/Qwen2.5-14B-Instruct"
+model_id = "Qwen/Qwen2.5-3B-Instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 

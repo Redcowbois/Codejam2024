@@ -81,7 +81,7 @@ def summary(request):
             return JsonResponse(data)
 
     if request.method == 'GET':
-        template = loader.get_template('flashcard.html')
+        template = loader.get_template('summary.html')
         return HttpResponse(template.render())
 
 
@@ -94,7 +94,7 @@ def flashcard(request):
             file.close()
 
             pipe = get_qwen_pipe()
-            text_data = generate_n_flashcards_for_info(3, text_data, pipe)
+            text_data = generate_n_flashcards_for_info(1, text_data, pipe)
             del pipe
             data = {
                 'message': text_data,

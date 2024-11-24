@@ -4,3 +4,7 @@ pip install ipykernel
 pip install pymupdf
 pip install pillow
 pip install --upgrade transformers datasets[audio] accelerate
+pip install moviepy
+pip install pydub
+pip install Pillow
+pip install gtts

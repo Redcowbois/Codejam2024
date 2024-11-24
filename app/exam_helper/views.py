@@ -22,30 +22,29 @@ def handle_uploaded_file(f, file_path):
 def index(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file_path = path.join(
-                ROOT_DIR, "uploaded_files", request.FILES["file"].name
-            )
-            handle_uploaded_file(request.FILES["file"], file_path)
-            filename, extension = path.splitext(file_path)
-            data = ""
-            if extension == ".mp4":
-                convert_mp4_to_mp3(file_path, f"{filename}.mp3")
-                extension = ".mp3"
-            if extension == ".mp3":
-                pipe = get_whisper_pipe()
-                data = pipe(f"{filename}.mp3")["text"]
-                del pipe
-            if extension != ".pdf":
-                with open("data.txt", "wb+") as file:
-                    file.write(data)
-            else:
-                extract_text_from_pdf(file_path, "data.txt")
-
+        if not form.is_valid():
             return JsonResponse({"redirect_url": "options"})
 
-        # Return the response with the redirection URL
+        file_path = path.join(ROOT_DIR, "uploaded_files", request.FILES["file"].name)
+        handle_uploaded_file(request.FILES["file"], file_path)
+        filename, extension = path.splitext(file_path)
+        data = ""
+        if extension == ".mp4":
+            convert_mp4_to_mp3(file_path, f"{filename}.mp3")
+            extension = ".mp3"
+        if extension == ".mp3":
+            pipe = get_whisper_pipe()
+            data = pipe(f"{filename}.mp3")["text"]
+            del pipe
+        if extension != ".pdf":
+            with open("data.txt", "wb+") as file:
+                file.write(data)
+        else:
+            extract_text_from_pdf(file_path, "data.txt")
+
         return JsonResponse({"redirect_url": "options"})
+
+        # Return the response with the redirection URL
 
     if request.method == "GET":
         template = loader.get_template("main.html")

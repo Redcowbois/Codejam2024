@@ -29,7 +29,7 @@ document.getElementById('upload-form').addEventListener('submit', function (even
     }
 
     // Save file details to localStorage
-    if (fileExtension === 'mp4') {
+    else if (fileExtension === 'mp4') {
         // For large files like MP4, only save metadata, not content
         localStorage.setItem('uploadedFile', JSON.stringify({
             name: file.name,
@@ -40,15 +40,59 @@ document.getElementById('upload-form').addEventListener('submit', function (even
     } else {
         // For smaller files like PDF and TXT, save the file content
         const reader = new FileReader();
-        reader.onload = function () {
-            localStorage.setItem('uploadedFile', JSON.stringify({
-                name: file.name,
-                type: file.type,
-                size: file.size,
-                content: reader.result
-            }));
-            window.location.href = 'file-options.html'; // Redirect to File Options Page
-        };
-        reader.readAsDataURL(file);
-    }
-});
+
+reader.onload = function () {
+    // File content is now fully read and available in reader.result
+    localStorage.setItem('uploadedFile', JSON.stringify({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        content: reader.result
+    }));
+
+    console.log(JSON.stringify({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        content: reader.result
+    }));
+
+    // Send the request after file content is read
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "", true);
+    xhr.setRequestHeader("Content-Type", "application/json"); // Set Content-Type header
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            const data = JSON.parse(xhr.responseText);
+            console.log('Response from server:', data);
+
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url; // Redirect if URL is provided
+            } else {
+                console.error('No redirect URL provided in the response.');
+            }
+        } else {
+            console.error(`HTTP error! Status: ${xhr.status}`);
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error("Network error");
+    };
+
+    // Prepare the request data
+    const requestData = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        content: reader.result // Base64-encoded file content
+    };
+
+    // Send the JSON payload
+    xhr.send(JSON.stringify(requestData));
+};
+
+// Start reading the file content as Base64
+reader.readAsDataURL(file);
+}});

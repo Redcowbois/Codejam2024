@@ -8,3 +8,7 @@ pip install moviepy
 pip install pydub
 pip install Pillow
 pip install gtts
+pip install flash-attn --no-build-isolation
+pip install requests
+pip install huggingface_hub
+

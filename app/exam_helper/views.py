@@ -36,11 +36,14 @@ def index(request):
             pipe = get_whisper_pipe()
             data = pipe(f"{filename}.mp3")["text"]
             del pipe
+        if extension == ".txt":
+            with open(file_path, "r") as file:
+                data = file.read()
         if extension != ".pdf":
-            with open("data.txt", "wb+") as file:
+            with open(path.join(ROOT_DIR, "data.txt"), "w+") as file:
                 file.write(data)
         else:
-            extract_text_from_pdf(file_path, "data.txt")
+            extract_text_from_pdf(file_path, path.join(ROOT_DIR, "data.txt"))
 
         return JsonResponse({"redirect_url": "options"})
 

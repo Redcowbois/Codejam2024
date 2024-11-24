@@ -40,7 +40,7 @@ def extract_text_from_pdf(pdf_path, output_text_file):
     pdf_document = fitz.open(pdf_path)
 
     # Open the output text file
-    with open(output_text_file, "wb+", encoding="utf-8") as text_file:
+    with open(output_text_file, "w+", encoding="utf-8") as text_file:
         # Iterate through each page
         for page_number in range(len(pdf_document)):
             page = pdf_document.load_page(page_number)

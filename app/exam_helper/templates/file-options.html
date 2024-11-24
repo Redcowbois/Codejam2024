@@ -20,15 +20,16 @@
         <form action="{% url 'summary' %}" method="get">
           <button class="btn action" type="submit">Summarize</button>
         </form>
-        <form action="{% url 'flashcard' %}" method="get">
-          <button class="btn action" type="submit">Generate flashcard format</button>
-        </form>
         <form action="{% url 'podcast' %}" method="get">
-          <button class="btn action" type="submit">Listen to a podcast</button>
+          <button class="btn action" type="submit">Create a Podcast</button>
+        </form>
+        <form action="{% url 'flashcard' %}" method="get">
+          <button class="btn action" type="submit">Generate flashcard data</button>
         </form>
         <form action="{% url 'quiz' %}" method="get">
-          <button class="btn action" type="submit">Quiz yourself</button>
+          <button class="btn action" type="submit">Quiz me</button>
         </form>
+        <button class="btn return" onclick="goBack()">Return</button>
         <button class="btn third" onclick="toggleBackground()">Change mode </button>
       </div>
     </div>

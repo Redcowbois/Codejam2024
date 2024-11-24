@@ -3,7 +3,7 @@ from utils import ROOT_DIR, read_file_into_string
 from os import path
 
 
-def generate_flashcards_for_info(info: str, pipe):
+def generate_flashcard_for_info(info: str, pipe):
     chat = initialize_flashcard_maker_chat()
     chat.append(
         {"role": "user", "content": f"This is the information you will use: {info}"}
@@ -30,18 +30,20 @@ def generate_flashcards_for_info(info: str, pipe):
     response = pipe(chat, max_new_tokens=100, temperature=0.2)
 
     answer = response[0]["generated_text"][-1]["content"]
-    return f"{question}; {answer}"
+    return f"{question}; {answer}".replace("\n", " ")
+
+
+def generate_n_flashcards_for_info(n, info, pipe):
+    return "\n".join(
+        generate_flashcard_for_info(
+            info[int(len(info) * i / n) : int(len(info) * (i + 1) / n)], pipe
+        )
+        for i in range(n)
+    )
 
 
 info = read_file_into_string(path.join(ROOT_DIR, "sample_audio", "sample1.txt"))
 
 pipe = get_qwen_pipe()
 
-print(
-    "\n".join(
-        generate_flashcards_for_info(
-            info[int(len(info) * i / 3) : int(len(info) * (i + 1) / 3)], pipe
-        )
-        for i in range(3)
-    )
-)
+print()

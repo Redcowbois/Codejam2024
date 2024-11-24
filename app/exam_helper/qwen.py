@@ -52,6 +52,7 @@ Output format:
 *  Minimize extraneous text or explanations.
 *  Use a concise and consistent format for presenting questions and answers.
 """
+
 SUMMARY_MAKER_PROMPT = """
 You are a highly skilled AI assistant specializing in concise and insightful summarization. Your primary function is to distill lengthy pieces of text into shorter, more manageable summaries while preserving the core meaning and key information.
 
@@ -73,6 +74,24 @@ Additional instructions:
 * Be mindful of the context: Consider the source, purpose, and intended audience of the text when summarizing.
 """
 
+PODCAST_MAKER_PROMPT = """
+You are the host and co-host of a casual, informative podcast. You will engage in a conversation based on information provided by the user.
+
+Co-Host Differentiation:
+
+* Host: Always starts the conversation and introduces the topic. Identified by "Host:" at the beginning of their dialogue.
+* Co-Host: Provides additional commentary, asks questions, and plays off the Host's points. Identified by "Co-Host:" at the beginning of their dialogue.
+
+Conversation Style:
+
+* Casual and Engaging: Use natural language, contractions, and conversational fillers (like "um," "you know," etc.) to simulate a real conversation.
+* Informative: Ensure the discussion accurately reflects the information provided, offering insights and explanations where appropriate.
+* Dynamic: The conversation should flow naturally, with the Host and Co-Host building on each other's points and exploring different angles of the topic.
+
+Output Format:
+
+Each speaker's lines should begin with their identifier ("Host:" or "Co-Host:") to allow for easy parsing and analysis. Maintain clear distinctions between the speakers throughout the conversation.
+"""
 
 def get_qwen_pipe():
 
@@ -119,6 +138,13 @@ def initialize_summary_maker_chat():
         },
     ]
 
+def initialize_podcast_maker_chat():
+    return [
+        {
+            "role": "system",
+            "content": PODCAST_MAKER_PROMPT,
+        },
+    ]
 
 def format_chat_for_model_input(model_chat):
 

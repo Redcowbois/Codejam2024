@@ -12,7 +12,7 @@ def generate_flashcard_for_info(info: str, pipe):
             "content": "Create a new, unique question. Only give the question, no answer.",
         }
     )
-    response = pipe(chat, max_new_tokens=100, temperature=0.2)
+    response = pipe(chat, max_new_tokens=100, temperature=0.4)
 
     question = response[0]["generated_text"][-1]["content"]
 

@@ -8,9 +8,10 @@ import json
 from exam_helper.flashcards import generate_n_flashcards_for_info
 from exam_helper.multiple_choice import generate_n_questions_for_info
 from exam_helper.summary import generate_summary_for_info
+from exam_helper.podcast import generate_podcast_string_for_info
 from exam_helper.qwen import get_qwen_pipe
 from os import path
-from exam_helper.utilities import convert_mp4_to_mp3, extract_text_from_pdf
+from exam_helper.utilities import convert_mp4_to_mp3, extract_text_from_pdf, podcast_gen
 from exam_helper.whisper import get_whisper_pipe
 
 
@@ -109,9 +110,23 @@ def flashcard(request):
 @csrf_exempt
 def podcast(request):
     if request.method == "POST":
-        print("options received")
-    template = loader.get_template("podcast.html")
-    return HttpResponse(template.render())
+        payload = json.loads(request.body)
+        file = open("data.txt", "r")
+        text_data = file.read()
+        file.close()
+        pipe = get_qwen_pipe()
+        text_data = generate_podcast_string_for_info(text_data, pipe)
+        text_data = text_data.replace("Co-Host", "P2").replace("Host", "P1")
+        del pipe
+        podcast_gen(text_data, path.join(ROOT_DIR, "static", "podcast.mp3"))
+        data = {
+            'message': text_data,
+        }
+        return JsonResponse(data)
+    
+    if request.method == 'GET':
+            template = loader.get_template('podcast.html')
+            return HttpResponse(template.render())
 
 
 @csrf_exempt

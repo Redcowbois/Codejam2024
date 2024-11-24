@@ -4,51 +4,46 @@ from transformers import (
     AutoProcessor,
     pipeline,
 )
-from utils import ROOT_DIR
-from os import path
-
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
-
-print(f"Using {device} for processing!")
-
-torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+from utils import get_device
 
 model_id = "openai/whisper-large-v3-turbo"
-
-model = AutoModelForSpeechSeq2Seq.from_pretrained(
-    model_id,
-    torch_dtype=torch_dtype,
-    low_cpu_mem_usage=True,
-    use_safetensors=True,
-)
-
-model.to(device)
-
-
 processor = AutoProcessor.from_pretrained(model_id)
 
-chunk_length_s = 30
 
-pipe = pipeline(
-    "automatic-speech-recognition",
-    model=model,
-    tokenizer=processor.tokenizer,
-    feature_extractor=processor.feature_extractor,
-    torch_dtype=torch_dtype,
-    device=device,
-    chunk_length_s=chunk_length_s,
-)
+def get_whisper_pipe():
+    device = get_device()
 
-generate_kwargs = {
-    "language": "english",
-}
+    torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+
+    model = AutoModelForSpeechSeq2Seq.from_pretrained(
+        model_id,
+        torch_dtype=torch_dtype,
+        low_cpu_mem_usage=True,
+        use_safetensors=True,
+    )
+
+    model.to(device)
+
+    chunk_length_s = 30
+
+    return pipeline(
+        "automatic-speech-recognition",
+        model=model,
+        tokenizer=processor.tokenizer,
+        feature_extractor=processor.feature_extractor,
+        torch_dtype=torch_dtype,
+        device=device,
+        chunk_length_s=chunk_length_s,
+    )
 
 
-def transcribe_to_file(mp3_path: str, file_path: str):
+def transcribe_to_file(mp3_path: str, file_path: str, whisper_pipe):
     with open(file_path, "a+") as file:
-        result = pipe(
+        result = whisper_pipe(
             mp3_path,
-            generate_kwargs=generate_kwargs,
+            generate_kwargs={
+                "language": "english",
+            },
             return_timestamps=True,
         )
         file.write(result["text"])

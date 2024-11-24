@@ -74,17 +74,15 @@ def summary(request):
 def flashcard(request):
         if request.method == 'POST':
             payload = json.loads(request.body)
+            file = open("data.txt", "r")
+            text_data = file.read()
+            file.close()
 
-            f = open("data.txt", "r")
-            text_data = f.read()
-            f.close()
-
-            final_data = generate_n_questions_for_info(3, text_data, get_qwen_pipe())
-
+            generate_n_flashcard_for_info(3, text_data, get_qwen_pipe())
+            
             data = {
-                'questions': final_data,
+                'message': text_data,
             }
-
             return JsonResponse(data)
 
         if request.method == 'GET':
@@ -103,10 +101,19 @@ def podcast(request):
 @csrf_exempt
 def quiz(request):
     if request.method == "POST":
-        print("options received")
-    template = loader.get_template("quiz.html")
-    return HttpResponse(template.render())
+        payload = json.loads(request.body)
+        f = open("data.txt", "r")
+        text_data = f.read()
+        f.close()
+        final_data = generate_n_questions_for_info(3, text_data, get_qwen_pipe())
+        data = {
+            'questions': final_data,
+        }
+        return JsonResponse(data)
 
+    if request.method == "GET":
+        template = loader.get_template("quiz.html")
+        return HttpResponse(template.render())
 
 @csrf_exempt
 def trial(request):

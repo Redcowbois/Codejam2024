@@ -42,6 +42,36 @@ def options(request):
         template = loader.get_template('file-options.html')
         return HttpResponse(template.render())
 
+
+@csrf_exempt
+def summary(request):
+        if request.method == 'POST':
+            print("options received")
+        template = loader.get_template('Summary.html')
+        return HttpResponse(template.render())
+
+@csrf_exempt
+def flashcard(request):
+        if request.method == 'POST':
+            print("options received")
+        template = loader.get_template('flashcard.html')
+        return HttpResponse(template.render())
+
+@csrf_exempt
+def podcast(request):
+        if request.method == 'POST':
+            print("options received")
+        template = loader.get_template('podcast.html')
+        return HttpResponse(template.render())
+
+@csrf_exempt
+def quiz(request):
+        if request.method == 'POST':
+            print("options received")
+        template = loader.get_template('quiz.html')
+        return HttpResponse(template.render())
+
+
 @csrf_exempt
 def trial(request):
     if request.method == 'POST':

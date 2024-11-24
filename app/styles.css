@@ -7,6 +7,31 @@ body {
   height: 100vh;
   background-color: #2B3A42;
   
+  
+}
+
+.animated-text{
+  font-style: oblique;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1000;
+  border-bottom: 2px solid #e3e3e3;
+}
+
+.logo {
+  height: 3em; /* Set the height of the image to match the font size */
+  vertical-align: middle; /* Align the image vertically to the text */
 }
 
 .container {
@@ -25,7 +50,7 @@ body {
 
 .left-section {
   background-color: #1A2D33;
-  color: white;
+  color: rgb(238, 234, 234);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,8 +80,13 @@ body {
 }
 
 .btn.primary {
-  background-color: #171414;
+  background-color: #080808;
   color: white;
+}
+
+.btn.primary:hover {
+  background-color: #efe8e8;
+  color: rgb(14, 2, 2);
 }
 
 .btn.secondary {
@@ -64,13 +94,32 @@ body {
   color: black;
 }
 
+.btn.secondary:hover {
+  background-color: #080808;
+  color: white;
+}
+
+
+
+
+.btn.third {
+  background-color: #080808;
+  color: white;
+}
+
+.btn.third:hover {
+  background-color: #efe8e8;
+  color: rgb(14, 2, 2);
+}
+
 .right-section {
-  background-color: #2CC4C7;
+  background-color: #349395;
   color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  opacity: 90%;
 }
 
 .upload-container {
@@ -103,6 +152,10 @@ body {
   background-color: #e9e1e1;
   color: rgb(15, 6, 6);
 }
+.btn.upload:hover {
+  background-color: #080808;
+  color: rgb(234, 221, 221);
+}
 
 
 .file-display {
@@ -132,6 +185,40 @@ body {
 
 
 
+.container2 {
+  display: flex;
+  width: 80%;
+  max-width: 1200px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.left-section2, .right-section2 {
+  flex: 1;
+  padding: 2rem;
+}
+
+.left-section2 {
+  background-color: #1A2D33;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.right-section2 {
+  background-color: #349395;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 .actions {
   display: flex;
@@ -151,7 +238,7 @@ body {
 }
 
 .btn.action:hover {
-  background-color: #007BFF;
+  background-color: #9bc7c8;
 }
 
 
@@ -161,7 +248,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2rem;
-  background-color: #E74C3C; /* Red for return button */
+  background-color: #901204; /* Red for return button */
   color: white;
   transition: background-color 0.3s;
   margin-top: 1rem; /* Adds spacing to separate it from other buttons */
@@ -170,3 +257,153 @@ body {
 .btn.return:hover {
   background-color: #C0392B;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Container with fixed size and position */
+.container3 {
+  position: fixed; /* Keep the container fixed on the screen */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust centering */
+  width: 80%; /* Fixed width */
+  height: 70%; /* Fixed height */
+  max-width: 1200px; /* Maximum width for larger screens */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  display: flex; /* Use flexbox for layout */
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+
+.left-section3 {
+  font-size: 1.3rem;
+  flex: 1; /* Allow section to grow and fill the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 1rem; /* Add padding for content spacing */
+  background: linear-gradient(to bottom, #214c5a, #122f3a); /* Gradient from top to bottom */
+  color: rgb(238, 234, 234); /* Text color */
+  border-radius: 10px; /* Rounded corners */
+  line-height: 1.7; /* Improve readability */
+  padding: 1rem 4rem;
+  scrollbar-color: #8c9cac #1E2D34; /* Thumb color and track color */
+  scrollbar-width: thin; /* Make the scrollbar thinner */
+  opacity: 80%;
+}
+
+
+/* Webkit scrollbar styling for Chrome, Edge, and Safari */
+.left-section3::-webkit-scrollbar {
+  width: 12px; /* Width of the vertical scrollbar */
+}
+
+/* Ensure the heading is visible */
+
+/* Paragraph styling */
+.left-section2  {
+ 
+  line-height: 1.5; /* Improve readability */
+}
+
+
+.btn.return2 {
+  
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: #96352a; /* Red for return button */
+  color: white;
+  transition: background-color 0.3s;
+  margin-top: 1rem; /* Adds spacing to separate it from other buttons */
+}
+
+.btn.return2:hover {
+  background-color: #9f4f48;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container4 {
+  position: fixed; /* Keep the container fixed on the screen */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust centering */
+  width: 80%; /* Fixed width */
+  height: 50%; /* Fixed height */
+  max-width: 1200px; /* Maximum width for larger screens */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  display: flex; /* Use flexbox for layout */
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+.left-section4 {
+  font-size: 1.3rem;
+  flex: 1; /* Allow section to grow and fill the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 1rem; /* Add padding for content spacing */
+  background-color: #0e1b1e; /* Section background */
+  color: rgb(238, 234, 234); /* Text color */
+  border-radius: 10px; /* Rounded corners */
+  line-height: 1.7; /* Improve readability */
+  padding: 1rem 4rem;
+  scrollbar-color: #8c9cac #1E2D34; /* Thumb color and track color */
+  scrollbar-width: thin; /* Make the scrollbar thinner */
+  opacity: 90%;
+}
+
+.audio-player {
+  margin: 20px auto;
+  display: block;
+  border-radius: 8px;
+  background: #fff;
+  width: 800px;
+  
+}
+
+
+.returnpost{
+  position: absolute; 
+  bottom: 40px;
+  right: 100px;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: #96352a; /* Red for return button */
+  color: white;
+  transition: background-color 0.3s;
+  margin-top: 1rem; /* Adds spacing to separate it from other buttons */
+}
+
+.returnpost:hover {
+  background-color: #C0392B;
+}
+
+

@@ -1,51 +1,41 @@
-# from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# device = "cpu"
-# model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2-7B-Instruct", low_cpu_mem_usage = True)
-# from accelerate import disk_offload
-# disk_offload(model = model, offload_dir="offload")
-# tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2-7B-Instruct")
+device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-# prompt = "Give me a short introduction to large language model."
+print(f"Using {device} for processing!")
 
-# messages = [{"role": "user", "content": prompt}]
+torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
-# text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+model_id = "HuggingFaceTB/SmolLM2-1.7B-Instruct"
 
-# model_inputs = tokenizer([text], return_tensors="pt").to(device)
-
-# generated_ids = model.generate(model_inputs.input_ids, max_new_tokens=512, do_sample=True)
-
-# generated_ids = [output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)]
-
-# response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
-
-# print(response)
-
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-from huggingface_hub import InferenceClient
-
-# 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
-
-client = InferenceClient(api_key="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")
-
-prompt = "please write a poem about bees."
-messages = [
-	{
-		"role": "system",
-		"content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."
-	},
-    {
-        "role":"user",
-        "content": prompt
-    }
-]
-
-completion = client.chat.completions.create(
-    model="Qwen/Qwen2.5-72B-Instruct", 
-	messages=messages, 
-	max_tokens=500
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype=torch_dtype,
+    low_cpu_mem_usage=True,
+    use_safetensors=True,
 )
 
-print(completion.choices[0].message.content)
+model.to(device)
+
+messages = [
+    {
+        "role": "system",
+        "content": "You are a test maker. You will be given information and your task is to create a list of \
+             3 questions based on the information with an answer for each.",
+    },
+    {
+        "role": "user",
+        "content": "Kangaroos are marsupials from the family Macropodidae. In common use the term is used \
+        to describe the largest species from this family, the red kangaroo, as well as the antilopine kangaroo, \
+        eastern grey kangaroo, and western grey kangaroo. Kangaroos are indigenous to Australia and New Guinea.",
+    },
+]
+
+input_text = tokenizer.apply_chat_template(messages, tokenize=False)
+inputs = tokenizer.encode(input_text, return_tensors="pt").to(device)
+outputs = model.generate(
+    inputs, max_new_tokens=50, temperature=0.2, top_p=0.9, do_sample=True
+)
+print(tokenizer.decode(outputs[0]))

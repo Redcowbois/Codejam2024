@@ -3,9 +3,9 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 import json
-import exam_helper.multiple_choice
-import exam_helper.qwen
-
+from exam_helper.multiple_choice import *
+from exam_helper.qwen import *
+from exam_helper.flashcards import *
 
 @csrf_exempt
 def index(request):
@@ -25,8 +25,9 @@ def index(request):
         # print(file_content)
         decoded =  base64.b64decode(file_content)
         decoded = decoded.decode('utf-8')
-        f = open("test.txt", "w")
+        f = open("data.txt", "w")
         f.write(decoded)
+        f.close()
         
         redirect_url = reverse('options')  # Replace 'some_view_name' with the actual view name
 
@@ -55,9 +56,22 @@ def summary(request):
 @csrf_exempt
 def flashcard(request):
         if request.method == 'POST':
-            print("options received")
-        template = loader.get_template('flashcard.html')
-        return HttpResponse(template.render())
+            # Parse the incoming JSON data
+            payload = json.loads(request.body)
+            file = open("data.txt", "r")
+            text_data = file.read()
+            file.close()
+
+            generate_n_flashcard_for_info(3, text_data, get_qwen_pipe())
+
+            data = {
+                'message': text_data,
+            }
+            return JsonResponse(data)
+        
+        if request.method == 'GET':
+            template = loader.get_template('flashcard.html')
+            return HttpResponse(template.render())
 
 @csrf_exempt
 def podcast(request):
@@ -65,6 +79,7 @@ def podcast(request):
             print("options received")
         template = loader.get_template('podcast.html')
         return HttpResponse(template.render())
+
 
 @csrf_exempt
 def quiz(request):

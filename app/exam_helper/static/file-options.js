@@ -52,11 +52,22 @@ if (fileData) {
     }
 }
 
-// Handle options
-function chooseOption(action) {
-    alert(`Redirecting to ${action} functionality!`);
+
+function goSummary() {
+    return
 }
 
+function goPodcast() {
+    return
+}
+
+function goQuiz() {
+    return
+}
+
+function goFlashcard() {
+    return
+}
 // Return to the previous page
 function goBack() {
     window.history.back();

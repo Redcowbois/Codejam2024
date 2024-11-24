@@ -11,5 +11,6 @@ pip install gtts
 pip install flash-attn --no-build-isolation
 pip install requests
 pip install huggingface_hub
+pip install moviepy
 
 

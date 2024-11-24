@@ -3,4 +3,4 @@ __pycache__/
 db*
 *.mp3
 *.mp4
-
+uploaded_files/

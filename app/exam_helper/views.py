@@ -2,34 +2,25 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
+from exam_helper.forms import UploadFileForm
+from exam_helper.utils import ROOT_DIR
 import json
-from exam_helper.multiple_choice import *
-from exam_helper.qwen import *
-from exam_helper.flashcards import *
+import exam_helper.multiple_choice
+import exam_helper.qwen
+from os import path
+
+def handle_uploaded_file(f):
+     with open(path.join(ROOT_DIR, "uploaded_files", f.name), "wb+") as file:
+          for chunk in f.chunks():
+               file.write(chunk)
 
 @csrf_exempt
 def index(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        print(data)
-
-        # Extract fields from the JSON payload
-        file_name = data.get('name')
-        file_type = data.get('type')
-        file_size = data.get('size')
-        file_content = data.get('content')  # Base64-encoded file content
-        file_content = file_content.split(",")[1]
-
-        # Decode the file content from Base64 if needed
-        import base64
-        # print(file_content)
-        decoded =  base64.b64decode(file_content)
-        decoded = decoded.decode('utf-8')
-        f = open("data.txt", "w")
-        f.write(decoded)
-        f.close()
-        
-        redirect_url = reverse('options')  # Replace 'some_view_name' with the actual view name
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES["file"])
+            return JsonResponse({'redirect_url': 'options'})
 
         # Return the response with the redirection URL
         return JsonResponse({'redirect_url': 'options'})

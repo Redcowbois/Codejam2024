@@ -1,6 +1,4 @@
-from qwen import initialize_flashcard_maker_chat, get_qwen_pipe
-from utils import ROOT_DIR, read_file_into_string
-from os import path
+from qwen import initialize_flashcard_maker_chat
 
 
 def generate_flashcard_for_info(info: str, pipe):
@@ -40,10 +38,3 @@ def generate_n_flashcards_for_info(n, info, pipe):
         )
         for i in range(n)
     )
-
-
-info = read_file_into_string(path.join(ROOT_DIR, "sample_audio", "sample1.txt"))
-
-pipe = get_qwen_pipe()
-
-print()

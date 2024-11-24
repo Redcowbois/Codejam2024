@@ -34,7 +34,7 @@ document.getElementById('upload-form').addEventListener('submit', function (even
     }
 
     const file = fileInput.files[0];
-    const allowedExtensions = ['pdf', 'mp4', 'txt'];
+    const allowedExtensions = ['pdf', 'mp4', 'txt', 'mp3'];
     const fileExtension = file.name.split('.').pop().toLowerCase();
 
     if (!allowedExtensions.includes(fileExtension)) {

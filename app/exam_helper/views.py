@@ -2,81 +2,117 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
+from exam_helper.forms import UploadFileForm
+from exam_helper.utils import ROOT_DIR
 import json
+import exam_helper.multiple_choice
+import exam_helper.qwen
+from os import path
+from exam_helper.utilities import convert_mp4_to_mp3, extract_text_from_pdf
+from exam_helper.whisper import get_whisper_pipe
+
+
+def handle_uploaded_file(f, file_path):
+    with open(file_path, "wb+") as file:
+        for chunk in f.chunks():
+            file.write(chunk)
 
 
 @csrf_exempt
 def index(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        print(data)
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if not form.is_valid():
+            return JsonResponse({"redirect_url": "options"})
 
-        # Extract fields from the JSON payload
-        file_name = data.get('name')
-        file_type = data.get('type')
-        file_size = data.get('size')
-        file_content = data.get('content')  # Base64-encoded file content
-        file_content = file_content.split(",")[1]
+        file_path = path.join(ROOT_DIR, "uploaded_files", request.FILES["file"].name)
+        handle_uploaded_file(request.FILES["file"], file_path)
+        filename, extension = path.splitext(file_path)
+        data = ""
+        if extension == ".mp4":
+            convert_mp4_to_mp3(file_path, f"{filename}.mp3")
+            extension = ".mp3"
+        if extension == ".mp3":
+            pipe = get_whisper_pipe()
+            data = pipe(f"{filename}.mp3")["text"]
+            del pipe
+        if extension == ".txt":
+            with open(file_path, "r") as file:
+                data = file.read()
+        if extension != ".pdf":
+            with open("data.txt", "w+") as file:
+                file.write(data)
+        else:
+            extract_text_from_pdf(file_path, "data.txt")
 
-        # Decode the file content from Base64 if needed
-        import base64
-        # print(file_content)
-        decoded =  base64.b64decode(file_content)
-        decoded = decoded.decode('utf-8')
-        f = open("test.txt", "w")
-        f.write(decoded)
-        
-        redirect_url = reverse('options')  # Replace 'some_view_name' with the actual view name
+        return JsonResponse({"redirect_url": "options"})
 
         # Return the response with the redirection URL
-        return JsonResponse({'redirect_url': 'options'})
-    
-    if request.method == 'GET':
-        template = loader.get_template('main.html')
+
+    if request.method == "GET":
+        template = loader.get_template("main.html")
         return HttpResponse(template.render())
+
 
 @csrf_exempt
 def options(request):
-        if request.method == 'POST':
-            print("options received")
-        template = loader.get_template('file-options.html')
-        return HttpResponse(template.render())
+    if request.method == "POST":
+        print("options received")
+    template = loader.get_template("file-options.html")
+    return HttpResponse(template.render())
 
 
 @csrf_exempt
 def summary(request):
-        if request.method == 'POST':
-            print("options received")
-        template = loader.get_template('Summary.html')
-        return HttpResponse(template.render())
+    if request.method == "POST":
+        print("options received")
+    template = loader.get_template("Summary.html")
+    return HttpResponse(template.render())
+
 
 @csrf_exempt
 def flashcard(request):
         if request.method == 'POST':
-            print("options received")
-        template = loader.get_template('flashcard.html')
-        return HttpResponse(template.render())
+            payload = json.loads(request.body)
+
+            f = open("data.txt", "r")
+            text_data = f.read()
+            f.close()
+
+            final_data = generate_n_questions_for_info(3, text_data, get_qwen_pipe())
+
+            data = {
+                'questions': final_data,
+            }
+
+            return JsonResponse(data)
+
+        if request.method == 'GET':
+            template = loader.get_template('flashcard.html')
+            return HttpResponse(template.render())
+
 
 @csrf_exempt
 def podcast(request):
-        if request.method == 'POST':
-            print("options received")
-        template = loader.get_template('podcast.html')
-        return HttpResponse(template.render())
+    if request.method == "POST":
+        print("options received")
+    template = loader.get_template("podcast.html")
+    return HttpResponse(template.render())
+
 
 @csrf_exempt
 def quiz(request):
-        if request.method == 'POST':
-            print("options received")
-        template = loader.get_template('quiz.html')
-        return HttpResponse(template.render())
+    if request.method == "POST":
+        print("options received")
+    template = loader.get_template("quiz.html")
+    return HttpResponse(template.render())
 
 
 @csrf_exempt
 def trial(request):
-    if request.method == 'POST':
-        a = request.POST['message']
+    if request.method == "POST":
+        a = request.POST["message"]
         return HttpResponse(a)
-    
-    template = loader.get_template('trial.html')
+
+    template = loader.get_template("trial.html")
     return HttpResponse(template.render())

@@ -94,7 +94,7 @@ def text_to_speech(text, accent, lang="en", temp_file="temp.mp3"):
             )  # Remove the temporary file after loading it into AudioSegment
 
 
-def podcast(podcast_script, output_podcast_file="final_podcast.mp3"):
+def podcast_gen(podcast_script, output_podcast_file="final_podcast.mp3"):
     """
     Generates a podcast from a script with accents for different speakers.
     """

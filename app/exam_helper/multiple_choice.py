@@ -17,7 +17,7 @@ def generate_question_for_info(info: str, pipe):
         }
     )
 
-    response = pipe(chat, max_new_tokens=100, temperature=0.2)
+    response = pipe(chat, max_new_tokens=100, temperature=0.4)
 
     question = response[0]["generated_text"][-1]["content"]
 
@@ -30,7 +30,7 @@ def generate_question_for_info(info: str, pipe):
         }
     )
 
-    response = pipe(chat, max_new_tokens=100)
+    response = pipe(chat, max_new_tokens=100, temperature=0.2)
 
     correct = response[0]["generated_text"][-1]["content"]
 
@@ -43,7 +43,7 @@ def generate_question_for_info(info: str, pipe):
         }
     )
 
-    response = pipe(chat, max_new_tokens=100)
+    response = pipe(chat, max_new_tokens=100, temperature=0.6)
 
     incorrect_answers.append(response[0]["generated_text"][-1]["content"])
 
@@ -54,7 +54,7 @@ def generate_question_for_info(info: str, pipe):
         }
     )
 
-    response = pipe(chat, max_new_tokens=100)
+    response = pipe(chat, max_new_tokens=100, temperature=0.6)
 
     incorrect_answers.append(response[0]["generated_text"][-1]["content"])
 

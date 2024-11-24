@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 test*
 __pycache__/
 db*
 *.mp3
 *.mp4
-=======
-test*
-__pycache__/
-db*
-*.mp3
-*.mp4
->>>>>>> wed
+

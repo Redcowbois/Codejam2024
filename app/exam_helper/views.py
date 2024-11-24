@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-
-# Create your views here.
-from django.http import HttpResponse
-
-=======
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 import json
->>>>>>> wed
+
 
 @csrf_exempt
 def index(request):
@@ -42,12 +35,6 @@ def index(request):
         template = loader.get_template('main.html')
         return HttpResponse(template.render())
 
-
-<<<<<<< HEAD
-def test(request):
-    return HttpResponse("test")
-
-=======
 @csrf_exempt
 def options(request):
         if request.method == 'POST':
@@ -63,4 +50,3 @@ def trial(request):
     
     template = loader.get_template('trial.html')
     return HttpResponse(template.render())
->>>>>>> wed

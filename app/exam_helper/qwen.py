@@ -111,6 +111,15 @@ def initialize_flashcard_maker_chat():
     ]
 
 
+def initialize_summary_maker_chat():
+    return [
+        {
+            "role": "system",
+            "content": SUMMARY_MAKER_PROMPT,
+        },
+    ]
+
+
 def format_chat_for_model_input(model_chat):
 
     text = tokenizer.apply_chat_template(

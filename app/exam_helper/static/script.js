@@ -12,7 +12,7 @@ function toggleBackground() {
   isDefaultBackground = !isDefaultBackground;
 }
 
-document.getElementById('file-upload').addEventListener('change', function () {
+document.getElementById('upload-form').addEventListener('change', function () {
     const fileDisplay = document.getElementById('file-display');
     const file = this.files[0];
     if (file) {

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from exam_helper.forms import UploadFileForm
@@ -46,7 +46,7 @@ def index(request):
         else:
             extract_text_from_pdf(file_path, "data.txt")
 
-        return JsonResponse({"redirect_url": "options"})
+        return HttpResponseRedirect(reverse("options"))
 
         # Return the response with the redirection URL
 

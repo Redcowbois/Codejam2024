@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 import json
+import exam_helper.multiple_choice
+import exam_helper.qwen
 
 
 @csrf_exempt

@@ -1,4 +1,4 @@
-from qwen import (
+from exam_helper.qwen import (
     initialize_multi_choice_maker_chat,
 )
 

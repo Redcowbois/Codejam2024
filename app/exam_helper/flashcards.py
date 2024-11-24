@@ -1,4 +1,4 @@
-from qwen import initialize_flashcard_maker_chat
+from exam_helper.qwen import initialize_flashcard_maker_chat
 
 
 def generate_flashcard_for_info(info: str, pipe):

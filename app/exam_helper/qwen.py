@@ -1,6 +1,6 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
-from utils import get_device
+from exam_helper.utils import get_device
 
 device = get_device()
 

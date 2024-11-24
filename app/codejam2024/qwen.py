@@ -20,6 +20,9 @@ to create questions. Your tasks include creating questions based on the given in
 You will perform the specific task at the request of the user. Do not add any text to your response that is not absolutely \
 necessary to the question or answer you are creating."
 
+PODCAST_MAKER_PROMPT = "You act out conversations between two people. You will be given information by the user that you will use as \
+the primary topic for a conversation "
+
 
 def get_qwen_pipe():
 

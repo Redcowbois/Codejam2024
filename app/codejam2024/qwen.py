@@ -15,9 +15,10 @@ the correct answers to questions, and come up with intentionally wrong answers t
 You will perform the specific task at the request of the user. Do not add any text to your response that is not absolutely \
 necessary to the question or answer you are creating."
 
-FLASHCARD_MAKER_PROMPT = "You create flash cards that are useful for studying. You will be given information by the user that \
-you will summarize. Your summaries must be concise and must focus on key points from the given information. Do not add any text \
-to your response that is not absolutely necessary to your summary."
+FLASHCARD_MAKER_PROMPT = "You create questions that are useful for studying. You will be given information by the user that you will use to \
+to create questions. Your tasks include creating questions based on the given information, and come up with the correct answers to questions. \
+You will perform the specific task at the request of the user. Do not add any text to your response that is not absolutely \
+necessary to the question or answer you are creating."
 
 
 def get_qwen_pipe():
@@ -44,6 +45,15 @@ def initialize_multi_choice_maker_chat():
         {
             "role": "system",
             "content": MULTIPLE_CHOICE_MAKER_PROMPT,
+        },
+    ]
+
+
+def initialize_flashcard_maker_chat():
+    return [
+        {
+            "role": "system",
+            "content": FLASHCARD_MAKER_PROMPT,
         },
     ]
 

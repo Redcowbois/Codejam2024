@@ -32,7 +32,7 @@ body {
 }
 
 .logo {
-  height: 1.5em; /* Set the height of the image to match the font size */
+  height:1em; /* Set the height of the image to match the font size */
   vertical-align: middle; /* Align the image vertically to the text */
   position: relative;
 }
@@ -234,7 +234,7 @@ body {
 }
 
 .btn.action:hover {
-  background-color: #9bc7c8;
+  background-color: #579798;
 }
 
 
@@ -312,9 +312,9 @@ body {
 }
 
 
-.btn.return2 {
+.breturn2 {
   
-  padding: 0.7rem 1.5rem;
+  
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -322,10 +322,10 @@ body {
   background-color: #96352a; /* Red for return button */
   color: white;
   transition: background-color 0.3s;
-  margin-top: 1rem; /* Adds spacing to separate it from other buttons */
+  
 }
 
-.btn.return2:hover {
+.breturn2:hover {
   background-color: #9f4f48;
 }
 

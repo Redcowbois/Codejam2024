@@ -40,10 +40,10 @@ def index(request):
             with open(file_path, "r") as file:
                 data = file.read()
         if extension != ".pdf":
-            with open(path.join(ROOT_DIR, "data.txt"), "w+") as file:
+            with open("data.txt", "w+") as file:
                 file.write(data)
         else:
-            extract_text_from_pdf(file_path, path.join(ROOT_DIR, "data.txt"))
+            extract_text_from_pdf(file_path, "data.txt")
 
         return JsonResponse({"redirect_url": "options"})
 

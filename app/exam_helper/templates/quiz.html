@@ -1,45 +1,84 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Upload</title>
+  <title>Dynamic Quiz</title>
   <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
-<body style="background-image: url('wallpaperflare.com_wallpaper.jpg'); background-size: cover; background-repeat: no-repeat;">
+<body style="background-image: url('{% static "wallpaperflare.com_wallpaper.jpg" %}'); background-size: cover; background-repeat: no-repeat;">
   <header class="header">
-    OMNI    
+    <img class="logo" src="{% static 'logo.png' %}" alt="Logo">
   </header>
 
   <div class="container3">
     <div class="left-section3">
-      <h1 id="animated-text" ><center>Quiz</center></h1>
-      <p><
-       
-        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
-        (Repeated content to demonstrate scrolling behavior.)
-        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
-        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
-        Tired of sifting through long vidred of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
- ugh long videos, PDFs, or audio files to get the key points? Test our tool
- 
- Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
- (Repeated content to demonstrate scrolling behavior.)
- Tir
-        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
-        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
-      </p>
-  
+      <h1 id="animated-text"><center>Quiz</center></h1>
+
+      <!-- Quiz Section -->
+      <div class="quiz-section"></div>
+
+      <p id="result"></p>
+
       <div class="buttons">
-        <button class="btn change-bg" onclick="toggleBackground()">Change mode </button>
+        <button type="button" class="btn verify" onclick="verifyAnswers()">Verify</button>
+        <button class="btn change-bg" onclick="toggleBackground()">Change mode</button>
         <button class="btn return2" onclick="goBack()">Return</button>
       </div>
     </div>
   </div>
 
   <script>
+      let quizData;
+      document.addEventListener('DOMContentLoaded', function () {
+      // Data to send in the POST request
+      fetch('', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken'), // CSRF token for Django
+          },
+          body: JSON.stringify(payload),
+      })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              return response.json(); // Assuming the backend returns JSON
+          })
+          .then(data => {
+              console.log('Data fetched successfully:', data);
+              // Example: Update the page with the fetched data
+              quizData = data;
+              loadQuiz();
+          })
+          .catch(error => {
+              console.error('There was a problem with the fetch operation:', error);
+          });
+  }, false);
+
+
+    // Sample JSON data for questions
+  //   const quizData = [
+  //   {
+  //     "question": "Which of the following is the correct representation of a complex number?",
+  //     "right_answer": "a+b⋅i",
+  //     "wrong_answers": ["a+b", "a×b+i"]
+  //   },
+  //   {
+  //     "question": "If z=3+4i, what is the magnitude of z?",
+  //     "right_answer": "5",
+  //     "wrong_answers": ["7", "10√10"]
+  //   },
+  //   {
+  //     "question": "What happens when you multiply i by itself?",
+  //     "right_answer": "-1",
+  //     "wrong_answers": ["1", "0"]
+  //   },
+  
+  // ];
+
     let isDefaultBackground = true;
 
     function goBack() {
@@ -49,16 +88,74 @@
     function toggleBackground() {
       if (isDefaultBackground) {
         // Switch to the new background
-        document.body.style.backgroundImage = "url('light.jpg')";
-
+        document.body.style.backgroundImage = "url('{% static "light.jpg" %}')";
       } else {
         // Switch back to the default background
-        document.body.style.backgroundImage = "url('wallpaperflare.com_wallpaper.jpg')";
-
+        document.body.style.backgroundImage = "url('{% static "wallpaperflare.com_wallpaper.jpg" %}')";
       }
       // Toggle the state
       isDefaultBackground = !isDefaultBackground;
     }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function loadQuiz() {
+      const quizSection = document.querySelector('.quiz-section');
+      quizSection.innerHTML = ''; // Clear existing content
+
+      quizData.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.classList.add('question');
+        
+        const questionLabel = document.createElement('label');
+        questionLabel.textContent = `${index + 1}. ${q.question}`;
+        questionDiv.appendChild(questionLabel);
+        questionDiv.appendChild(document.createElement('br'));
+
+        // Combine right and wrong answers, then shuffle
+        const allAnswers = shuffle([q.right_answer, ...q.wrong_answers]);
+
+        allAnswers.forEach(option => {
+          const optionInput = document.createElement('input');
+          optionInput.type = 'radio';
+          optionInput.id = `question${index}option${option}`;
+          optionInput.name = `question${index}`;
+          optionInput.value = option;
+
+          const optionLabel = document.createElement('label');
+          optionLabel.htmlFor = `question${index}option${option}`;
+          optionLabel.textContent = option;
+
+          questionDiv.appendChild(optionInput);
+          questionDiv.appendChild(optionLabel);
+          questionDiv.appendChild(document.createElement('br'));
+        });
+
+        quizSection.appendChild(questionDiv);
+      });
+    }
+
+    function verifyAnswers() {
+      let score = 0;
+
+      quizData.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`)?.value;
+        if (selectedOption === q.right_answer) {
+          score++;
+        }
+      });
+
+      const resultText = `You got ${score} out of ${quizData.length} questions correct.`;
+      document.getElementById("result").innerText = resultText;
+    }
+
+    // Load the quiz on page load
   </script>
 </body>
 </html>

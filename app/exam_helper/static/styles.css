@@ -32,8 +32,9 @@ body {
 }
 
 .logo {
-  height: 3em; /* Set the height of the image to match the font size */
+  height: 1.5em; /* Set the height of the image to match the font size */
   vertical-align: middle; /* Align the image vertically to the text */
+  position: relative;
 }
 
 .container {

@@ -20,6 +20,8 @@ to create questions. Your tasks include creating questions based on the given in
 You will perform the specific task at the request of the user. Do not add any text to your response that is not absolutely \
 necessary to the question or answer you are creating."
 
+SUMMARY_MAKER_PROMPT = "You"
+
 
 def get_qwen_pipe():
 

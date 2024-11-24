@@ -23,9 +23,10 @@ def index(request):
         # print(file_content)
         decoded =  base64.b64decode(file_content)
         decoded = decoded.decode('utf-8')
-        f = open("data.txt", "w")
+        f = open("test.txt", "w")
         f.write(decoded)
         
+        redirect_url = reverse('options')  # Replace 'some_view_name' with the actual view name
 
         # Return the response with the redirection URL
         return JsonResponse({'redirect_url': 'options'})

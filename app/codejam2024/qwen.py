@@ -1,7 +1,6 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
-from utils import ROOT_DIR, get_device
-from os import path
+from utils import get_device
 
 device = get_device()
 
@@ -10,15 +9,16 @@ model_id = "Qwen/Qwen2.5-3B-Instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-TEST_MAKER_PROMPT = 'You are a test maker. You will be given information and your task is to create a list of \
-             exactly 3 questions based on the information. You must come up with an answer for each \
-             question. Structure the question and answer as key-value pairs. \
-             The key for the question must be a "Q" and the key for the answer must be a "A".'
-
-MULTIPLE_CHOICE_MAKER_PROMPT = "You create multiple choice tests. You will be given by the user information that you will use to \
+MULTIPLE_CHOICE_MAKER_PROMPT = "You create multiple choice tests. You will be given information by the user that you will use to \
 to create the multiple choice questions. Your tasks include creating questions based on the given information, come up with \
 the correct answers to questions, and come up with intentionally wrong answers to questions for added difficulty. \
-You will perform the specific task at the request of the user. Only ever respond with exactly what is requested."
+You will perform the specific task at the request of the user. Do not add any text to your response that is not absolutely \
+necessary to the question or answer you are creating."
+
+FLASHCARD_MAKER_PROMPT = "You create questions that are useful for studying. You will be given information by the user that you will use to \
+to create questions. Your tasks include creating questions based on the given information, and come up with the correct answers to questions. \
+You will perform the specific task at the request of the user. Do not add any text to your response that is not absolutely \
+necessary to the question or answer you are creating."
 
 
 def get_qwen_pipe():
@@ -45,6 +45,15 @@ def initialize_multi_choice_maker_chat():
         {
             "role": "system",
             "content": MULTIPLE_CHOICE_MAKER_PROMPT,
+        },
+    ]
+
+
+def initialize_flashcard_maker_chat():
+    return [
+        {
+            "role": "system",
+            "content": FLASHCARD_MAKER_PROMPT,
         },
     ]
 

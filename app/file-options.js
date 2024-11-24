@@ -1,4 +1,17 @@
-// JavaScript code for file upload and preview functionality
+let isDefaultBackground = true;
+function toggleBackground() {
+      if (isDefaultBackground) {
+        // Switch to the new background
+        document.body.style.backgroundImage = "url('light2.jpg')";
+
+      } else {
+        // Switch back to the default background
+        document.body.style.backgroundImage = "url('wallpaperflare.com_wallpaper.jpg')";
+
+      }
+      // Toggle the state
+      isDefaultBackground = !isDefaultBackground;
+    }
 
 // Retrieve file details from localStorage
 const fileData = JSON.parse(localStorage.getItem('uploadedFile'));

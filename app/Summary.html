@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-image: url('wallpaperflare.com_wallpaper.jpg'); background-size: cover; background-repeat: no-repeat;">
+  <header class="header">
+    OMNI    
+  </header>
+
+  <div class="container3">
+    <div class="left-section3">
+      <h1 id="animated-text" ><center>Summary</center></h1>
+      <p><
+       
+        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+        (Repeated content to demonstrate scrolling behavior.)
+        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+        Tired of sifting through long vidred of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+ ugh long videos, PDFs, or audio files to get the key points? Test our tool
+ 
+ Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+ (Repeated content to demonstrate scrolling behavior.)
+ Tir
+        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+        Tired of sifting through long videos, PDFs, or audio files to get the key points? Test our tool
+      </p>
+  
+      <div class="buttons">
+        <button class="btn change-bg" onclick="toggleBackground()">Change mode </button>
+        <button class="btn return2" onclick="goBack()">Return</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isDefaultBackground = true;
+
+    function goBack() {
+      window.history.back(); // Navigate to the previous page
+    }
+
+    function toggleBackground() {
+      if (isDefaultBackground) {
+        // Switch to the new background
+        document.body.style.backgroundImage = "url('light.jpg')";
+
+      } else {
+        // Switch back to the default background
+        document.body.style.backgroundImage = "url('wallpaperflare.com_wallpaper.jpg')";
+
+      }
+      // Toggle the state
+      isDefaultBackground = !isDefaultBackground;
+    }
+  </script>
+</body>
+</html>
+
+

@@ -33,11 +33,13 @@
       let quizData;
       document.addEventListener('DOMContentLoaded', function () {
       // Data to send in the POST request
+      payload = {
+        body: "hi"
+      }
       fetch('', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
-              'X-CSRFToken': getCookie('csrftoken'), // CSRF token for Django
           },
           body: JSON.stringify(payload),
       })
@@ -50,7 +52,7 @@
           .then(data => {
               console.log('Data fetched successfully:', data);
               // Example: Update the page with the fetched data
-              quizData = data;
+              quizData = data.questions;
               loadQuiz();
           })
           .catch(error => {
@@ -120,6 +122,7 @@
 
         // Combine right and wrong answers, then shuffle
         const allAnswers = shuffle([q.right_answer, ...q.wrong_answers]);
+
 
         allAnswers.forEach(option => {
           const optionInput = document.createElement('input');

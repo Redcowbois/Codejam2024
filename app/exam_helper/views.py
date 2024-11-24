@@ -5,8 +5,9 @@ from django.views.decorators.csrf import csrf_exempt
 from exam_helper.forms import UploadFileForm
 from exam_helper.utils import ROOT_DIR
 import json
-import exam_helper.multiple_choice
-import exam_helper.qwen
+from exam_helper.flashcards import generate_n_flashcards_for_info
+from exam_helper.multiple_choice import generate_n_questions_for_info
+from exam_helper.qwen import get_qwen_pipe
 from os import path
 from exam_helper.utilities import convert_mp4_to_mp3, extract_text_from_pdf
 from exam_helper.whisper import get_whisper_pipe
@@ -78,8 +79,9 @@ def flashcard(request):
             text_data = file.read()
             file.close()
 
-            generate_n_flashcard_for_info(3, text_data, get_qwen_pipe())
-            
+            pipe = get_qwen_pipe()
+            text_data = generate_n_flashcards_for_info(3, text_data, pipe)
+            del pipe
             data = {
                 'message': text_data,
             }
@@ -105,7 +107,9 @@ def quiz(request):
         f = open("data.txt", "r")
         text_data = f.read()
         f.close()
-        final_data = generate_n_questions_for_info(3, text_data, get_qwen_pipe())
+        pipe = get_qwen_pipe()
+        final_data = generate_n_questions_for_info(3, text_data, pipe)
+        del pipe
         data = {
             'questions': final_data,
         }

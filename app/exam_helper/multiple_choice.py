@@ -61,14 +61,12 @@ def generate_question_for_info(info: str, pipe):
     return {
         "question": question, #str
         "right_answer": correct, #str
-        "wrong_answer": incorrect_answers, #arr
+        "wrong_answers": incorrect_answers, #arr
     }
 
 
 def generate_n_questions_for_info(n, info, pipe):
-    return [].extend(
-        generate_question_for_info(
-            info[int(len(info) * i / n) : int(len(info) * (i + 1) / n)], pipe
-        )
-        for i in range(n)
-    )
+    questions = []
+    for _ in range(n):
+        questions.append(generate_question_for_info(info, pipe))
+    return questions

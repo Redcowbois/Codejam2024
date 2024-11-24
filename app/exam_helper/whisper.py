@@ -4,7 +4,7 @@ from transformers import (
     AutoProcessor,
     pipeline,
 )
-from app.exam_helper.utils import get_device
+from exam_helper.utils import get_device
 
 model_id = "openai/whisper-large-v3-turbo"
 processor = AutoProcessor.from_pretrained(model_id)

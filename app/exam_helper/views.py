@@ -62,7 +62,7 @@ def flashcard(request):
             text_data = file.read()
             file.close()
 
-            generate_n_flashcard_for_info(3, text_data, get_qwen_pipe())
+            text_data = generate_n_flashcards_for_info(3, text_data, get_qwen_pipe())
 
             data = {
                 'message': text_data,

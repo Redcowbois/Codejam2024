@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             console.log('Data fetched successfully:', data);
             const container = document.getElementById('page-content')
-            container.innerHTML(`<p>${data.message}</p>`)
+            container.innerHTML = `${data.message}`
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
